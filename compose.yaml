@@ -1,0 +1,25 @@
+# Servizi di supporto all'app, che si avvia con `php artisan serve`.
+# Avvio: docker compose up -d
+services:
+  # Database: stessi valori di DB_* nel .env.
+  postgres:
+    image: postgres:18
+    environment:
+      POSTGRES_DB: app
+      POSTGRES_USER: laravel
+      POSTGRES_PASSWORD: secret
+    # Solo su 127.0.0.1: l'app gira sull'host, nessun altro sulla rete deve raggiungere DB e mail.
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql
+
+  # Finto server SMTP: l'app spedisce su 127.0.0.1:1025, le mail si leggono su http://localhost:8025.
+  mailpit:
+    image: axllent/mailpit
+    ports:
+      - "127.0.0.1:1025:1025"
+      - "127.0.0.1:8025:8025"
+
+volumes:
+  postgres-data:

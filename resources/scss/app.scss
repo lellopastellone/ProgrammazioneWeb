@@ -1,0 +1,275 @@
+// ============================================================
+// FlowDesk — Design System
+// Bootstrap 5.3 override: palette Slate + Indigo professionale
+// ============================================================
+
+// --- Palette principale ---
+$primary:   #4F46E5;   // Indigo 600
+$secondary: #6B7280;   // Slate 500
+$dark:      #111827;   // Gray 900
+$light:     #F9FAFB;   // Gray 50
+
+// --- Sfondo e testo ---
+$body-bg:              #F3F4F6;
+$body-color:           #111827;
+$body-secondary-color: #6B7280;
+$body-secondary-bg:    #F9FAFB;
+$body-tertiary-bg:     #F0F0F0;
+
+// --- Bordi e link ---
+$border-color: #E5E7EB;
+$link-color:   $primary;
+
+// --- Card ---
+$card-bg:            #FFFFFF;
+$card-border-color:  #E5E7EB;
+$card-border-radius: 0.75rem;
+$card-cap-bg:        transparent;
+$table-bg:           transparent;
+$list-group-bg:      transparent;
+
+// --- Input ---
+$input-bg:                 #FFFFFF;
+$input-border-color:       #D1D5DB;
+$input-focus-border-color: $primary;
+$input-focus-box-shadow:   0 0 0 3px rgba(79, 70, 229, 0.15);
+
+// --- Dropdown / Modal ---
+$dropdown-bg:           #FFFFFF;
+$dropdown-border-color: #E5E7EB;
+$modal-content-bg:      #FFFFFF;
+$progress-bg:           #E5E7EB;
+
+// --- Tipografia ---
+$font-family-sans-serif: Figtree, 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+$font-size-base:         0.9375rem;
+$line-height-base:       1.6;
+
+// --- Colori tema (enum + utilità Bootstrap) ---
+$theme-colors: (
+    "primary":   $primary,
+    "secondary": $secondary,
+    "success":   #059669,
+    "info":      #0891B2,
+    "warning":   #D97706,
+    "danger":    #DC2626,
+    "light":     $light,
+    "dark":      $dark,
+    "accent":    #8B5CF6,
+    "neutral":   #E5E7EB,
+);
+
+$min-contrast-ratio: 3;
+
+// --- Utility aggiuntiva ---
+$utilities: (
+    "max-height-card": (
+        property: max-height,
+        class: mh,
+        values: (card: 28rem),
+    ),
+    // Pannello laterale del calendario: si allarga da w-0 e il calendario si stringe con lui (x-transition di Alpine).
+    // In chiusura la larghezza aspetta 0.15s, il tempo che la card svanisca.
+    "width-zero": (
+        property: width,
+        class: w,
+        values: (0: 0),
+    ),
+    "transition": (
+        property: transition,
+        class: transition,
+        values: (panel-in: width .3s ease-in-out, panel-out: width .3s ease-in-out .15s),
+    ),
+);
+
+// ============================================================
+@import "bootstrap/scss/bootstrap";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+// ============================================================
+
+
+// ============================================================
+// CSS CUSTOM LAYER
+// ============================================================
+
+// --- Card: hover lift ---
+.card {
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.card:hover {
+    box-shadow: 0 4px 16px rgba(17, 24, 39, 0.1), 0 2px 4px rgba(17, 24, 39, 0.06);
+    transform: translateY(-1px);
+}
+
+// --- Stat card: accent bar in cima ---
+.stat-card {
+    overflow: hidden;
+}
+.stat-card::before {
+    content: '';
+    display: block;
+    height: 3px;
+    background: var(--bs-primary);
+    border-radius: var(--bs-card-border-radius) var(--bs-card-border-radius) 0 0;
+    margin: calc(-1 * var(--bs-card-border-width)) calc(-1 * var(--bs-card-border-width)) 0;
+}
+
+// --- Progress bar ---
+.progress {
+    height: 6px;
+    border-radius: 4px;
+}
+
+// --- Badge pill ---
+.badge.rounded-pill {
+    padding: 0.35em 0.75em;
+}
+
+// --- Kanban columns ---
+.kanban-col {
+    background: var(--bs-light);
+    border-radius: 0.75rem;
+    min-height: 200px;
+}
+.kanban-col-header {
+    border-top: 3px solid transparent;
+    border-radius: 0.75rem 0.75rem 0 0;
+}
+
+// --- Workflow stepper ---
+.stepper-line {
+    flex: 1;
+    height: 2px;
+    background: var(--bs-border-color);
+    margin: 0 0.25rem;
+    align-self: center;
+}
+.stepper-line.done {
+    background: var(--bs-success);
+}
+
+// --- Table row hover indigo ---
+.table-hover > tbody > tr:hover > * {
+    background-color: rgba(79, 70, 229, 0.04);
+}
+
+// --- Stacked avatars ---
+.avatar-stack {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+}
+.avatar-stack .badge,
+.avatar-stack img {
+    margin-left: -6px;
+    border: 2px solid #fff;
+    position: relative;
+}
+.avatar-stack > :first-child {
+    margin-left: 0;
+}
+
+// --- Empty state ---
+.empty-state {
+    padding: 3rem 1rem;
+}
+.empty-state .empty-icon {
+    color: var(--bs-secondary);
+    opacity: 0.25;
+}
+
+// --- Micro-animazioni ---
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in-up {
+    animation: fadeInUp 0.35s ease both;
+}
+.fade-in-up:nth-child(1) { animation-delay: 0ms;   }
+.fade-in-up:nth-child(2) { animation-delay: 60ms;  }
+.fade-in-up:nth-child(3) { animation-delay: 120ms; }
+.fade-in-up:nth-child(4) { animation-delay: 180ms; }
+
+// --- Navbar ---
+.navbar.navbar-scrolled {
+    box-shadow: 0 2px 8px rgba(17, 24, 39, 0.25);
+}
+.navbar .nav-link {
+    transition: color 0.15s ease, border-color 0.15s ease;
+    border-bottom: 2px solid transparent;
+    padding-bottom: calc(0.5rem - 2px);
+}
+.navbar .nav-link.active {
+    border-bottom-color: var(--bs-primary);
+}
+.navbar .nav-link:hover:not(.active) {
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+// --- Auth split layout ---
+.auth-split {
+    min-height: 100vh;
+    display: flex;
+}
+.auth-split .auth-brand {
+    background: linear-gradient(135deg, #111827 0%, #1e1b4b 60%, #312e81 100%);
+}
+.auth-split .auth-form {
+    background: #fff;
+}
+
+// --- Task in ritardo ---
+.task-overdue-row td:first-child {
+    border-left: 3px solid var(--bs-danger);
+}
+.task-overdue-card {
+    border-left: 3px solid var(--bs-danger) !important;
+}
+
+// --- Nav underline tabs ---
+.nav-underline .nav-link {
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    color: var(--bs-secondary);
+    font-weight: 500;
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+.nav-underline .nav-link.active,
+.nav-underline .nav-link:hover {
+    color: var(--bs-primary);
+    border-bottom-color: var(--bs-primary);
+    background: transparent;
+}
+
+// --- Comment bubble ---
+.comment-bubble {
+    background: var(--bs-light);
+    border-radius: 0 0.75rem 0.75rem 0.75rem;
+    padding: 0.75rem 1rem;
+}
+.comment-bubble.own {
+    background: rgba(79, 70, 229, 0.08);
+    border-radius: 0.75rem 0 0.75rem 0.75rem;
+}
+
+// --- Project card border per stato ---
+.project-card-border {
+    border-left: 4px solid var(--bs-primary) !important;
+}
+
+// --- Greeting dashboard ---
+.page-greeting {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--bs-dark);
+}
+.page-greeting span {
+    color: var(--bs-primary);
+}
+
+// --- Table: allineamento verticale coerente per le intestazioni ---
+.table > thead,
+.table > thead > tr > th {
+    vertical-align: middle;
+}

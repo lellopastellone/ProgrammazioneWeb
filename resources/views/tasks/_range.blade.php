@@ -1,0 +1,2 @@
+{{-- Visualizzazione compatta dell'intervallo temporale del task (data inizio e scadenza) --}}
+@if ($task->start_date || $task->end_date){{ $task->start_date?->format('d/m') ?? '…' }} – {{ $task->end_date?->format('d/m') ?? '…' }}@else senza date @endif
